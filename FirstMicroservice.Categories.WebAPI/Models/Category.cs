@@ -3,6 +3,6 @@
     public sealed class Category
     {
         public int Id { get; set; }
-        public string Work { get; set; } = default!;
+        public string Name{ get; set; } = default!;
     }
 }

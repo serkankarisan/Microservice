@@ -8,6 +8,6 @@ namespace FirstMicroservice.Todos.WebAPI.Context
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
-        public DbSet<Category> Todos { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
