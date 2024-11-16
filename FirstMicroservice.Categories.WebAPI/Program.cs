@@ -11,7 +11,8 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+            //options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DockerSqlServer"));
         });
         var app = builder.Build();
 
@@ -40,6 +41,13 @@ internal class Program
 
             return Results.Ok(new { Message = "Category created successfully" });
         });
+
+        using (var scoped = app.Services.CreateScope())
+        {
+            var srv = scoped.ServiceProvider;
+            var context = srv.GetRequiredService<ApplicationDbContext>();
+            context.Database.Migrate();
+        }
 
         app.Run();
     }
